@@ -43,6 +43,7 @@ setup-build-env:
 	else \
 		git clone --recurse-submodules --depth 1 --branch "$(QMK_REPO_BRANCH)" "$(QMK_REPO_URL)" "$(QMK_BUILD_DIR)"; \
 	fi
+	@git -C "$(QMK_BUILD_DIR)" submodule update --init --recursive
 	$(MAKE) clean-build-staging
 	@if [ ! -f "$(QMK_BREW_BASELINE)" ]; then brew list --formula --full-name | sort > "$(QMK_BREW_BASELINE)"; fi
 	@HOMEBREW_NO_AUTO_UPDATE=1 brew install make zstd
@@ -67,8 +68,23 @@ setup-build-env:
 
 clean-build-env:
 	$(MAKE) clean-build-staging
-	$(MAKE) clean-build-tools
-	$(MAKE) clean-build-temp
+	@tools_status=0; temp_status=0; \
+	$(MAKE) clean-build-tools || tools_status=$$?; \
+	if [ -e "$(QMK_BUILD_DIR)" ] && \
+	   { [ ! -d "$(QMK_BUILD_DIR)/.git" ] || \
+	     [ "$$(git -C "$(QMK_BUILD_DIR)" remote get-url origin)" != "$(QMK_REPO_URL)" ]; }; then \
+		echo "Refusing to remove unexpected directory: $(QMK_BUILD_DIR)" >&2; temp_status=1; \
+	else \
+		for path in $(QMK_BUILD_TEMP_PATHS); do \
+			if [ -e "$$path" ]; then \
+				printf 'Removing %s\n' "$$path"; \
+				rm -rf "$$path" || temp_status=1; \
+			fi; \
+		done; \
+	fi; \
+	if [ "$$tools_status" -ne 0 ] || [ "$$temp_status" -ne 0 ]; then \
+		echo "Build cleanup finished with errors; see the messages above" >&2; exit 1; \
+	fi
 
 clean-build-staging:
 	@if [ -e "$(QMK_BUILD_DIR)" ]; then \
@@ -86,16 +102,17 @@ clean-build-staging:
 
 clean-build-tools:
 	@command -v brew >/dev/null 2>&1 || { echo "Homebrew is required to remove build formulas" >&2; exit 1; }
-	@set -eu; \
+	@set -u; failed=0; \
 	if [ -s "$(QMK_BREW_ADDED)" ]; then \
 		printf 'Uninstalling Homebrew formulas installed by setup-build-env\n'; \
-		xargs brew uninstall < "$(QMK_BREW_ADDED)"; \
+		xargs brew uninstall < "$(QMK_BREW_ADDED)" || failed=1; \
 	fi; \
 	for formula in $(QMK_LEGACY_BREW_FORMULAE); do \
 		if brew list --versions "$$formula" >/dev/null 2>&1; then \
-			brew uninstall "$$formula"; \
+			brew uninstall "$$formula" || failed=1; \
 		fi; \
-	done
+	done; \
+	exit $$failed
 
 clean-build-temp:
 	@set -eu; \

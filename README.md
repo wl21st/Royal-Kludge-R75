@@ -53,23 +53,62 @@ The firmware uses a 6-layer system for maximum flexibility:
 #### ⚙️ System Controls (Layer 2)
 *Access by holding `Fn` + `Right Shift`*
 
-| Action | Shortcut |
-| :--- | :--- |
-| **Enter Bootloader** | `Triple Tap Q` |
-| **Clear EEPROM** | `Triple Tap Z` |
-| **Toggle NKRO** | `N` |
-| **Toggle SOCD** | `T` |
-| **Toggle OpenRGB** | `O` |
-| **Toggle SignalRGB** | `S` |
-| **Switch to Layer 0** | `1` |
-| **Switch to Layer 3 (Mac)** | `3` |
-| **Switch to Layer 4 (Numpad)** | `4` |
+| Action | Shortcut | Notes |
+| :--- | :--- | :--- |
+| **Enter Bootloader** | `Triple Tap Q` | Flashes Yellow |
+| **Clear EEPROM** | `Triple Tap Z` | Flashes Purple |
+| **Toggle NKRO** | `N` | Highlighted Red in Layer 2 |
+| **Toggle SOCD / SnapTap** | `T` | Highlighted Orange in Layer 2 |
+| **Toggle OpenRGB** | `O` | Highlighted Cyan in Layer 2 |
+| **Toggle SignalRGB** | `S` | Highlighted Green in Layer 2 |
+| **Switch to Layer 0 (Windows)** | `F1` | Switches back to Base Windows layout |
+| **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
+| **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
 
-#### 💡 RGB Modes (Layer 2)
-If using the All-in-One firmware:
-- Toggle **OpenRGB**: `Fn` + `Right Shift` + `O`
-- Toggle **SignalRGB**: `Fn` + `Right Shift` + `S`
-- *Note: If both are off, the keyboard reverts to standard QMK RGB effects.*
+> [!NOTE]
+> In the firmware, the layer switching keys are mapped to **`F1`**, **`F2`**, and **`F3`** on the top row of Layer 2. If you prefer using number keys `1`, `3`, and `4`, you can easily remap them using [VIA](https://usevia.app/).
+
+---
+
+#### 💡 RGB Lighting Controls (Layer 1)
+*Access by holding `Fn` + Key*
+
+| Action | Shortcut | Description |
+| :--- | :--- | :--- |
+| **Toggle Backlight On / Off** | `Fn` + `\` | Toggles RGB matrix on/off (blinks Space & Alts dark red when off) |
+| **Next RGB Effect** | `Fn` + `]` | Cycle forward through animations |
+| **Previous RGB Effect** | `Fn` + `[` | Cycle backward through animations |
+| **Reset to Solid Color** | `Fn` + `P` | Sets static solid color mode and flashes Space white |
+| **Brightness Up** | `Fn` + `.` or `Fn` + `↑` | Increase brightness (flashes white; dark red at max) |
+| **Brightness Down** | `Fn` + `,` or `Fn` + `↓` | Decrease brightness (flashes white; dark red at min) |
+| **Hue Up** | `Fn` + `O` | Increase hue (flashes white; dark red at max) |
+| **Hue Down** | `Fn` + `I` | Decrease hue (flashes white; dark red at min) |
+| **Saturation Up** | `Fn` + `L` | Increase saturation (flashes white; dark red at max) |
+| **Saturation Down** | `Fn` + `K` | Decrease saturation (flashes white; dark red at min) |
+| **Effect Speed Up** | `Fn` + `→` | Speed up animation (flashes white; dark red at max) |
+| **Effect Speed Down** | `Fn` + `;` or `Fn` + `←` | Slow down animation (flashes white; dark red at min) |
+
+---
+
+#### 🚨 Mode & LED Indicators
+
+* **Mac Mode vs. Windows Mode (Hardware LED)**:
+  * **Mac Mode (Layer 3)**: The dedicated hardware **Mac Indicator LED** (`M` LED, pin `B8`) is **illuminated (ON)**.
+  * **Windows Mode (Layer 0)**: The **Mac Indicator LED** is **OFF**.
+  * *(The Mac LED also lights up temporarily while holding `Fn` + `Right Shift` because Layer 2 is active).*
+* **Win Lock / Layer Indicator LED** (pin `B9`):
+  * Illuminates whenever **Layer 1 (`Fn`)** or **Layer 4 (Numpad)** is active.
+* **Layer 2 (Options) Visual Preview**:
+  * Holding `Fn` + `Right Shift` turns off general background lighting and illuminates functional keys:
+    * **`O` (Cyan)**: OpenRGB mode
+    * **`S` (Green)**: SignalRGB mode
+    * **`N` (Red)**: NKRO toggle
+    * **`T` (Orange)**: SOCD cleaner toggle
+    * **`Q` (Yellow)**: Bootloader reset
+    * **`Z` (Purple)**: EEPROM reset
+* **OpenRGB & SignalRGB Status**:
+  * **OpenRGB ON (`Fn` + `Right Shift` + `O`)**: Firmware halts internal QMK effects and waits for raw HID frame streams from the OpenRGB desktop software.
+  * **OpenRGB OFF**: Immediately snaps back to the built-in solid color effect (`RGB_MATRIX_SOLID_COLOR`).
 
 ---
 

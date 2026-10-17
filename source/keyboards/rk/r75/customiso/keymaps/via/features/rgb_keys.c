@@ -1,5 +1,5 @@
-#include "quantum_keycodes_legacy.h"
 #include "rgb_matrix.h"
+#include "defines.h"
 
 #include "indicators.h"
 #include "rgb_keys.h"

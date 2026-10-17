@@ -31,8 +31,8 @@ A high-performance, feature-rich custom QMK firmware for the **Royal Kludge R75 
 | Firmware Image | Features | USB IDs (VID:PID) | Status |
 | :--- | :--- | :--- | :--- |
 | **Original Firmware** | QMK, VIA | `342d:e484` | Backup |
-| **VIA + OpenRGB + SignalRGB** | All Features | `342d:e484` | ✔️ Maintained |
-| **VIA + OpenRGB + SignalRGB (ISO)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.0](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.0.hex)** | All Features | `342d:e484` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.0 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.0.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
 
 ---
 
@@ -59,8 +59,8 @@ The firmware uses a 6-layer system for maximum flexibility:
 | **Clear EEPROM** | `Triple Tap Z` | Highlighted Purple in Layer 2 |
 | **Toggle NKRO** | `N` | Highlighted Red in Layer 2 |
 | **Toggle SOCD / SnapTap** | `T` | Highlighted Orange in Layer 2 |
-| **Toggle OpenRGB** | `O` | Highlighted Cyan in Layer 2 |
-| **Toggle SignalRGB** | `S` | Highlighted Green in Layer 2 |
+| **Toggle OpenRGB** | `O` | Cyan when active; Red when disabled in Layer 2 |
+| **Toggle SignalRGB** | `S` | Green when active; Red when disabled in Layer 2 |
 | **Switch to Layer 0 (Windows)** | `F1` | Switches back to Base Windows layout |
 | **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
 | **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
@@ -109,8 +109,8 @@ The firmware uses a 6-layer system for maximum flexibility:
   * Illuminates whenever **Layer 1 (`Fn`)** or **Layer 4 (Numpad)** is active.
 * **Layer 2 (Options) Visual Preview**:
   * Holding `Fn` + `Right Shift` turns off general background lighting and illuminates functional keys:
-    * **`O` (Cyan)**: OpenRGB mode
-    * **`S` (Green)**: SignalRGB mode
+    * **`O` (Cyan when active, Red when disabled)**: OpenRGB mode
+    * **`S` (Green when active, Red when disabled)**: SignalRGB mode
     * **`N` (Red)**: NKRO toggle
     * **`T` (Orange)**: SOCD cleaner toggle
     * **`Q` (Yellow)**: Bootloader reset
@@ -134,7 +134,7 @@ To use VIA, you may need to manually load the JSON layout file:
 
 #### Verify the installed custom firmware on macOS
 
-The custom ANSI and ISO firmware sources set USB device version **1.0.0**. The checked-in HEX files were built before this marker and still report **0.0.1**; rebuild and flash an image before expecting the new value. On macOS, check `bcdDevice` alongside the keyboard name:
+The versioned ANSI and ISO HEX files use USB device version **1.0.0**. The unversioned HEX files are preserved at **0.0.1**. On macOS, check `bcdDevice` alongside the keyboard name:
 
 ```shell
 ioreg -p IOUSB -l -w 0 | grep -E 'Royal Kludge R75|bcdDevice|idVendor|idProduct'

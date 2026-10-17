@@ -7,6 +7,14 @@
 #include "defines.h"
 #include "indicator_queue.h"
 
+#ifdef OPENRGB_ENABLE
+extern uint8_t is_orgb_mode;
+#endif
+
+#ifdef SIGNALRGB_SUPPORT_ENABLE
+extern uint8_t is_srgb_mode;
+#endif
+
 // clang-format off
 
 /*  LED Matrix
@@ -171,10 +179,24 @@ bool rgb_matrix_indicators_advanced_user(uint8_t led_min, uint8_t led_max) {
         RGB_MATRIX_INDICATOR_SET_COLOR(74, 0x7A, 0x00, 0xFF);
 
         // highlight S as SignalRGB
-        RGB_MATRIX_INDICATOR_SET_COLOR(52, 0x00, 0xFF, 0x00);
-        
+#ifdef SIGNALRGB_SUPPORT_ENABLE
+        if (is_srgb_mode) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(52, 0x00, 0xFF, 0x00);
+        } else
+#endif
+        {
+            RGB_MATRIX_INDICATOR_SET_COLOR(52, 0xFF, 0x00, 0x00);
+        }
+
         // highlight O as OpenRGB
-        RGB_MATRIX_INDICATOR_SET_COLOR(40, 0x00, 0xFF, 0xFF);
+#ifdef OPENRGB_ENABLE
+        if (is_orgb_mode) {
+            RGB_MATRIX_INDICATOR_SET_COLOR(40, 0x00, 0xFF, 0xFF);
+        } else
+#endif
+        {
+            RGB_MATRIX_INDICATOR_SET_COLOR(40, 0xFF, 0x00, 0x00);
+        }
     }
 
     if (IS_LAYER_ON(4)) {

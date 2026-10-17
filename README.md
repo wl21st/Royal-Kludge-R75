@@ -170,6 +170,8 @@ qmk compile -j 0 -kb rk/r75/custom -km via
 ```
 *The `-j 0` flag enables parallel building for faster results.*
 
+To remove the temporary QMK build files and uninstall the Homebrew formulas used for the local build, run `make clean-build`. Homebrew will retain any formula that it cannot safely uninstall because another installed package depends on it.
+
 ---
 
 ## ⚠️ Disclaimer

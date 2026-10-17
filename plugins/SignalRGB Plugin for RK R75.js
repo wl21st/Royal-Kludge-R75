@@ -1,5 +1,5 @@
 export function Name() { return "Royal Kludge R75"; }
-export function Version() { return "1.0.0"; }
+export function Version() { return "1.0.1"; }
 export function VendorId() { return 0x342D; }
 export function ProductId() { return 0xE484; }
 export function Publisher() { return "@snakkarike"; }

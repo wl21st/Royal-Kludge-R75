@@ -88,7 +88,7 @@ bool process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
                     indicator_enqueue(41, 200, 4, INDICATOR_RGB_DARK_RED); // I - HUD
                     blink_space(false);
                 } else {
-                    indicator_enqueue(40, 150, 1, RGB_WHITE); // I - HUD
+                    indicator_enqueue(41, 150, 1, RGB_WHITE); // I - HUD
                 }
                 rgb_matrix_decrease_hue_noeeprom();
             }
@@ -100,10 +100,10 @@ bool process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
                     indicator_enqueue(59, 200, 4, INDICATOR_RGB_DARK_RED); // L - SAI
                     indicator_enqueue(58, 200, 2, RGB_BLACK);              // K - SAD
                     blink_space(false);
+                } else {
+                    indicator_enqueue(59, 150, 1, RGB_WHITE); // L - SAI
                 }
                 rgb_matrix_increase_sat_noeeprom();
-            } else {
-                indicator_enqueue(59, 150, 1, RGB_WHITE); // L - SAI
             }
             return false;
         case RGB_SAD:
@@ -113,10 +113,10 @@ bool process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
                     indicator_enqueue(59, 200, 2, RGB_BLACK);              // L - SAI
                     indicator_enqueue(58, 200, 4, INDICATOR_RGB_DARK_RED); // K - SAD
                     blink_space(false);
+                } else {
+                    indicator_enqueue(58, 150, 1, RGB_WHITE); // K - SAD
                 }
                 rgb_matrix_decrease_sat_noeeprom();
-            } else {
-                indicator_enqueue(59, 150, 1, RGB_WHITE); // K - SAD
             }
             return false;
         case RGB_VAI:
@@ -126,10 +126,10 @@ bool process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
                     indicator_enqueue(67, 200, 2, RGB_BLACK);              // , - VAD
                     blink_space(false);
                     blink_arrows();
+                } else {
+                    indicator_enqueue(66, 150, 1, RGB_WHITE); // . - VAI
                 }
                 rgb_matrix_increase_val_noeeprom();
-            } else {
-                indicator_enqueue(66, 150, 1, RGB_WHITE); // . - VAI
             }
             return false;
         case RGB_VAD:
@@ -139,10 +139,10 @@ bool process_rgb_keys(uint16_t keycode, keyrecord_t *record) {
                     indicator_enqueue(67, 200, 4, INDICATOR_RGB_DARK_RED); // , - VAD
                     blink_space(false);
                     blink_arrows();
+                } else {
+                    indicator_enqueue(67, 150, 1, RGB_WHITE); // , - VAD
                 }
                 rgb_matrix_decrease_val_noeeprom();
-            } else {
-                indicator_enqueue(66, 150, 1, RGB_WHITE); // , - VAD
             }
             return false;
     }

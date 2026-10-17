@@ -30,9 +30,8 @@ A high-performance, feature-rich custom QMK firmware for the **Royal Kludge R75 
 
 | Firmware Image | Features | USB IDs (VID:PID) | Status |
 | :--- | :--- | :--- | :--- |
-| **Original Firmware** | QMK, VIA | `342d:e484` | Backup |
-| **[VIA + OpenRGB + SignalRGB v1.0.0](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.0.hex)** | All Features | `342d:e484` | ✔️ Maintained |
-| **[VIA + OpenRGB + SignalRGB v1.0.0 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.0.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.1](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.1.hex)** | All Features | `342d:e484` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.1 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.1.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
 
 ---
 
@@ -134,13 +133,13 @@ To use VIA, you may need to manually load the JSON layout file:
 
 #### Verify the installed custom firmware on macOS
 
-The versioned ANSI and ISO HEX files use USB device version **1.0.0**. The unversioned HEX files are preserved at **0.0.1**. On macOS, check `bcdDevice` alongside the keyboard name:
+The versioned ANSI and ISO HEX files use USB device version **1.0.1**. The unversioned HEX files are preserved at **0.0.1**. On macOS, check `bcdDevice` alongside the keyboard name:
 
 ```shell
 ioreg -p IOUSB -l -w 0 | grep -E 'Royal Kludge R75|bcdDevice|idVendor|idProduct'
 ```
 
-The USB product ID remains `0xe484` for ANSI or `0xe483` for ISO. macOS reports `bcdDevice = 256` for version `1.0.0` (`bcdDevice = 1` for the older `0.0.1`). The device version is separate from the product ID.
+The USB product ID remains `0xe484` for ANSI or `0xe483` for ISO. macOS reports `bcdDevice = 257` for version `1.0.1` (`bcdDevice = 1` for the older `0.0.1`). The device version is separate from the product ID.
 
 ### 3️⃣ SignalRGB Setup
 1.  Copy [`SignalRGB Plugin for RK R75.js`](plugins/SignalRGB%20Plugin%20for%20RK%20R75.js) to:

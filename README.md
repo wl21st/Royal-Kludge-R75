@@ -163,14 +163,21 @@ To build the firmware yourself, you will need to clone the appropriate QMK firmw
 - **For OpenRGB & SignalRGB Support**: Use the [OpenSignalRGB-2026 Branch](https://github.com/snakkarike/qmk_firmware/tree/OpenSignalRGB-2026).
 - **For Traditional QMK**: Use the [Official QMK Firmware](https://github.com/qmk/qmk_firmware).
 
-Once your environment is set up, use the following command:
+On macOS, prepare an isolated QMK checkout and toolchain with:
 
 ```shell
-qmk compile -j 0 -kb rk/r75/custom -km via
+make setup-build-env
 ```
-*The `-j 0` flag enables parallel building for faster results.*
 
-To remove the temporary QMK build files and uninstall the Homebrew formulas used for the local build, run `make clean-build`. Homebrew will retain any formula that it cannot safely uninstall because another installed package depends on it.
+The target clones the `OpenSignalRGB-2026` QMK branch into `/tmp/r75-qmk-build`, installs the QMK CLI and compiler toolchain under `/tmp`, and stages this repository's ANSI and ISO keyboard sources in that checkout. Build either layout from the QMK checkout:
+
+```shell
+cd /tmp/r75-qmk-build
+PATH="/tmp/r75-qmk-distrib/bin:/tmp/r75-qmk-uv-tools/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH" /tmp/r75-qmk-uv-tools/bin/qmk compile -j 4 -kb rk/r75/custom -km via
+PATH="/tmp/r75-qmk-distrib/bin:/tmp/r75-qmk-uv-tools/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH" /tmp/r75-qmk-uv-tools/bin/qmk compile -j 4 -kb rk/r75/customiso -km via
+```
+
+Use `make clean-build-staging` to remove the copied keyboard sources and generated QMK build outputs while keeping the environment. Use `make clean-build-env` to remove the temporary checkout, CLI, toolchain, and build-installed Homebrew formulas. Homebrew protects formulas required by other installed packages. `make clean-build` remains an alias for `make clean-build-env`.
 
 ---
 

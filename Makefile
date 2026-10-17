@@ -1,3 +1,5 @@
+.DEFAULT_GOAL := help
+
 QMK_REPO_URL := https://github.com/snakkarike/qmk_firmware.git
 QMK_REPO_BRANCH := OpenSignalRGB-2026
 QMK_BUILD_DIR := /tmp/r75-qmk-build
@@ -8,7 +10,10 @@ QMK_BREW_BASELINE := /tmp/r75-qmk-brew-before.txt
 QMK_BREW_AFTER := /tmp/r75-qmk-brew-after.txt
 QMK_BREW_ADDED := /tmp/r75-qmk-brew-added.txt
 QMK_TOOLCHAIN := $(QMK_DISTRIB_DIR)/bin/arm-none-eabi-gcc
-QMK_CLI := $(QMK_UV_TOOL_DIR)/bin/qmk
+QMK_CLI := $(QMK_UV_TOOL_DIR)/qmk/bin/qmk
+ANSI_FIRMWARE_VERSION := $(shell python3 -c 'import json; print(json.load(open("source/keyboards/rk/r75/custom/keyboard.json"))["usb"]["device_version"])')
+ISO_FIRMWARE_VERSION := $(shell python3 -c 'import json; print(json.load(open("source/keyboards/rk/r75/customiso/keyboard.json"))["usb"]["device_version"])')
+QMK_BUILD_PATH := $(QMK_DISTRIB_DIR)/bin:$(QMK_UV_TOOL_DIR)/qmk/bin:/opt/homebrew/opt/make/libexec/gnubin:$(PATH)
 
 QMK_BUILD_TEMP_PATHS := \
 	$(QMK_BUILD_DIR) \
@@ -27,7 +32,21 @@ QMK_LEGACY_BREW_FORMULAE := \
 	libmpc \
 	make
 
-.PHONY: setup-build-env clean-build-env clean-build-staging clean-build-tools clean-build-temp clean-build
+.PHONY: help setup-build-env build copy-hex clean-build-env clean-build-staging clean-build-tools clean-build-temp clean-build clean-all
+
+help:
+	@printf '%s\n' \
+		'Available targets:' \
+		'  help                Show this help message (default).' \
+		'  setup-build-env     Prepare the isolated QMK checkout and toolchain.' \
+		'  build               Compile ANSI and ISO firmware HEX files.' \
+		'  copy-hex            Build and copy versioned HEX files into firmware/.' \
+		'  clean-build-staging Remove staged keyboard sources and generated build outputs.' \
+		'  clean-build-tools   Remove build formulas installed by setup-build-env.' \
+		'  clean-build-temp    Remove temporary QMK build environment files.' \
+		'  clean-build-env     Remove staged files, temporary environment, and build tools.' \
+		'  clean-build         Alias for clean-build-env.' \
+		'  clean-all           Alias for clean-build-env.'
 
 setup-build-env:
 	@command -v git >/dev/null 2>&1 || { echo "git is required" >&2; exit 1; }
@@ -64,7 +83,16 @@ setup-build-env:
 		done
 	@printf 'Build environment is ready at %s\n' "$(QMK_BUILD_DIR)"
 	@printf 'QMK CLI: %s\n' "$(QMK_CLI)"
-	@printf 'Build from that directory with PATH="%s/bin:%s/bin:/opt/homebrew/opt/make/libexec/gnubin:$$PATH" %s compile -kb rk/r75/custom -km via\n' "$(QMK_DISTRIB_DIR)" "$(QMK_UV_TOOL_DIR)" "$(QMK_CLI)"
+	@printf 'Run make build to compile both firmware layouts.\n'
+
+build: setup-build-env
+	cd "$(QMK_BUILD_DIR)" && PATH="$(QMK_BUILD_PATH)" "$(QMK_CLI)" compile -j 4 -kb rk/r75/custom -km via
+	cd "$(QMK_BUILD_DIR)" && PATH="$(QMK_BUILD_PATH)" "$(QMK_CLI)" compile -j 4 -kb rk/r75/customiso -km via
+
+copy-hex: build
+	mkdir -p firmware
+	cp "$(QMK_BUILD_DIR)/.build/rk_r75_custom_via.hex" "firmware/VIA Plus SignalRGB & OpenRGB Firmware-v$(ANSI_FIRMWARE_VERSION).hex"
+	cp "$(QMK_BUILD_DIR)/.build/rk_r75_customiso_via.hex" "firmware/VIA Plus SignalRGB & OpenRGB Firmware-ISO-v$(ISO_FIRMWARE_VERSION).hex"
 
 clean-build-env:
 	$(MAKE) clean-build-staging
@@ -130,3 +158,6 @@ clean-build-temp:
 
 # Backward-compatible alias for the original cleanup target.
 clean-build: clean-build-env
+
+# Convenient alias for removing the full build environment.
+clean-all: clean-build-env

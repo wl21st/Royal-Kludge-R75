@@ -162,21 +162,20 @@ To build the firmware yourself, you will need to clone the appropriate QMK firmw
 - **For OpenRGB & SignalRGB Support**: Use the [OpenSignalRGB-2026 Branch](https://github.com/snakkarike/qmk_firmware/tree/OpenSignalRGB-2026).
 - **For Traditional QMK**: Use the [Official QMK Firmware](https://github.com/qmk/qmk_firmware).
 
-On macOS, prepare an isolated QMK checkout and toolchain with:
+On macOS, prepare the isolated QMK checkout and toolchain, then build both layouts:
 
 ```shell
 make setup-build-env
+make build
 ```
 
-The target clones the `OpenSignalRGB-2026` QMK branch into `/tmp/r75-qmk-build`, installs the QMK CLI and compiler toolchain under `/tmp`, and stages this repository's ANSI and ISO keyboard sources in that checkout. Build either layout from the QMK checkout:
+`make build` compiles ANSI (`rk/r75/custom`) and ISO (`rk/r75/customiso`) HEX files in the QMK checkout. To copy them into this repository's `firmware/` directory with version suffixes taken from each keyboard's `device_version`, run:
 
 ```shell
-cd /tmp/r75-qmk-build
-PATH="/tmp/r75-qmk-distrib/bin:/tmp/r75-qmk-uv-tools/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH" /tmp/r75-qmk-uv-tools/bin/qmk compile -j 4 -kb rk/r75/custom -km via
-PATH="/tmp/r75-qmk-distrib/bin:/tmp/r75-qmk-uv-tools/bin:/opt/homebrew/opt/make/libexec/gnubin:$PATH" /tmp/r75-qmk-uv-tools/bin/qmk compile -j 4 -kb rk/r75/customiso -km via
+make copy-hex
 ```
 
-Use `make clean-build-staging` to remove the copied keyboard sources and generated QMK build outputs while keeping the environment. Use `make clean-build-env` to remove the temporary checkout, CLI, toolchain, and build-installed Homebrew formulas. Homebrew protects formulas required by other installed packages. `make clean-build` remains an alias for `make clean-build-env`.
+The setup target clones the `OpenSignalRGB-2026` QMK branch into `/tmp/r75-qmk-build`, installs the QMK CLI and compiler toolchain under `/tmp`, and stages this repository's ANSI and ISO keyboard sources in that checkout. Use `make clean-build-staging` to remove the copied keyboard sources and generated QMK build outputs while keeping the environment. Use `make clean-build-env` to remove the temporary checkout, CLI, toolchain, and build-installed Homebrew formulas. Homebrew protects formulas required by other installed packages. `make clean-build` and `make clean-all` are aliases for `make clean-build-env`.
 
 ---
 

@@ -33,3 +33,18 @@ enum layer_names {
 #define TD_TG_CTL TD(TD_CTL_TG)
 #define TD_KB_RST TD(TD_RESET)
 #define TD_KB_CLR TD(TD_CLEAR)
+
+// Preserve the legacy RGB names used in this keymap on current QMK.
+#ifndef RGB_TOG
+#    define RGB_TOG RM_TOGG
+#    define RGB_MOD RM_NEXT
+#    define RGB_RMOD RM_PREV
+#    define RGB_SPI RM_SPDU
+#    define RGB_SPD RM_SPDD
+#    define RGB_HUI RM_HUEU
+#    define RGB_HUD RM_HUED
+#    define RGB_SAI RM_SATU
+#    define RGB_SAD RM_SATD
+#    define RGB_VAI RM_VALU
+#    define RGB_VAD RM_VALD
+#endif

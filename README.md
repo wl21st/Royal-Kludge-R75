@@ -55,8 +55,8 @@ The firmware uses a 6-layer system for maximum flexibility:
 
 | Action | Shortcut | Notes |
 | :--- | :--- | :--- |
-| **Enter Bootloader** | `Triple Tap Q` | Flashes Yellow |
-| **Clear EEPROM** | `Triple Tap Z` | Flashes Purple |
+| **Enter Bootloader** | `Triple Tap Q` | Highlighted Yellow in Layer 2 |
+| **Clear EEPROM** | `Triple Tap Z` | Highlighted Purple in Layer 2 |
 | **Toggle NKRO** | `N` | Highlighted Red in Layer 2 |
 | **Toggle SOCD / SnapTap** | `T` | Highlighted Orange in Layer 2 |
 | **Toggle OpenRGB** | `O` | Highlighted Cyan in Layer 2 |
@@ -64,6 +64,12 @@ The firmware uses a 6-layer system for maximum flexibility:
 | **Switch to Layer 0 (Windows)** | `F1` | Switches back to Base Windows layout |
 | **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
 | **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
+
+> [!IMPORTANT]
+> **Triple-Tap Timing & Execution (`Q` / `Z`)**:
+> - **Hold Order**: Press and hold **`Fn` first**, then press and hold **`Right Shift`**. Keep **both keys held down** continuously throughout the sequence.
+> - **Rapid Cadence**: Tap `Q` (or `Z`) 3 times quickly in rapid succession (each tap must be within **200ms** of the previous tap).
+> - **Hold Until Triggered**: Keep holding `Fn` + `Right Shift` for a split second after the 3rd tap until the reset executes. Releasing either modifier immediately after the 3rd tap drops the active layer before QMK's tap-dance timeout finishes, canceling the action.
 
 > [!NOTE]
 > In the firmware, the layer switching keys are mapped to **`F1`**, **`F2`**, and **`F3`** on the top row of Layer 2. If you prefer using number keys `1`, `3`, and `4`, you can easily remap them using [VIA](https://usevia.app/).

@@ -65,6 +65,9 @@ The firmware uses a 6-layer system for maximum flexibility:
 | **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
 | **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
 
+> [!NOTE]
+> **F12 in Mac mode:** Mac mode only swaps the Alt and Cmd keys; it does not change the top-row function keys. Pressing `F12` by itself sends `F12`. Hold `Fn` and press `F12` to send **Volume Up** (the volume controls are on the Fn layer).
+
 > [!IMPORTANT]
 > **Triple-Tap Timing & Execution (`Q` / `Z`)**:
 > - **Hold Order**: Press and hold **`Fn` first**, then press and hold **`Right Shift`**. Keep **both keys held down** continuously throughout the sequence.

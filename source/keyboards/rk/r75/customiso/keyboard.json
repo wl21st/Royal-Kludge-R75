@@ -124,9 +124,9 @@
             {"matrix": [5, 5], "x": 80, "y": 64, "flags": 4}
         ]
     },
-    "url": "",
+    "url": "https://github.com/snakkarike/Royal-Kludge-R75",
     "usb": {
-        "device_version": "0.0.1",
+        "device_version": "1.0.0",
         "force_nkro": true,
         "pid": "0xE483",
         "suspend_wakeup_delay": 1000,

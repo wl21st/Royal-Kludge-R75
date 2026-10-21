@@ -76,6 +76,11 @@ The firmware uses a 6-layer system for maximum flexibility:
 > [!NOTE]
 > In the firmware, the layer switching keys are mapped to **`F1`**, **`F2`**, and **`F3`** on the top row of Layer 2. If you prefer using number keys `1`, `3`, and `4`, you can easily remap them using [VIA](https://usevia.app/).
 
+> [!NOTE]
+> **Default Layer on Power Off / Restart**:
+> The wired keyboard defaults to **Layer 0 (Windows)** every time it is unplugged, powered off, or restarted. The layer switching shortcuts (`F1`/`F2`/`F3`) use QMK's transient `TO(n)` action (in RAM) rather than persistent EEPROM/Flash default layer writes (`DF(n)`).
+> For a detailed guide on how batteryless persistence works and how to make Mac mode permanent across reboots, see [Layer Persistence & Power-off Behavior](docs/kb/layer-persistence-and-power-cycles.md).
+
 ---
 
 #### 💡 RGB Lighting Controls (Layer 1)

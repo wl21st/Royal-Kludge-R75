@@ -30,8 +30,8 @@ A high-performance, feature-rich custom QMK firmware for the **Royal Kludge R75 
 
 | Firmware Image | Features | USB IDs (VID:PID) | Status |
 | :--- | :--- | :--- | :--- |
-| **[VIA + OpenRGB + SignalRGB v1.0.1](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.1.hex)** | All Features | `342d:e484` | ✔️ Maintained |
-| **[VIA + OpenRGB + SignalRGB v1.0.1 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.1.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.2](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.2.hex)** | All Features | `342d:e484` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.2 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.2.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
 
 ---
 
@@ -60,8 +60,8 @@ The firmware uses a 6-layer system for maximum flexibility:
 | **Toggle SOCD / SnapTap** | `T` | Highlighted Orange in Layer 2 |
 | **Toggle OpenRGB** | `O` | Cyan when active; Red when disabled in Layer 2 |
 | **Toggle SignalRGB** | `S` | Green when active; Red when disabled in Layer 2 |
-| **Switch to Layer 0 (Windows)** | `F1` | Switches back to Base Windows layout |
-| **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
+| **Switch to Layer 0 (Windows)** | `F1` | Switches to Base Windows layout for the session (Mac LED turns OFF) |
+| **Switch to Layer 3 (Mac)** | `F2` | Switches to Mac layout (Default on boot; Mac LED turns ON) |
 | **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
 
 > [!NOTE]

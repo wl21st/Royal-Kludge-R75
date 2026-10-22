@@ -11,6 +11,11 @@
 #include "features/rgb_keys.h"
 #include "features/socd_cleaner.h"
 
+void keyboard_post_init_user(void) {
+    // Default to Mac layout (Layer 3) on startup
+    layer_on(3);
+}
+
 void housekeeping_task_user(void) {
     // Note: We can decide what to do with the MAC Led in this function
     if (IS_LAYER_ON(2) || IS_LAYER_ON(3)) { // if the Ctl layer is active

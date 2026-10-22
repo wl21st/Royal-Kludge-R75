@@ -30,8 +30,8 @@ A high-performance, feature-rich custom QMK firmware for the **Royal Kludge R75 
 
 | Firmware Image | Features | USB IDs (VID:PID) | Status |
 | :--- | :--- | :--- | :--- |
-| **[VIA + OpenRGB + SignalRGB v1.0.1](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.1.hex)** | All Features | `342d:e484` | ✔️ Maintained |
-| **[VIA + OpenRGB + SignalRGB v1.0.1 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.1.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.2](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-v1.0.2.hex)** | All Features | `342d:e484` | ✔️ Maintained |
+| **[VIA + OpenRGB + SignalRGB v1.0.2 (ISO)](firmware/VIA%20Plus%20SignalRGB%20%26%20OpenRGB%20Firmware-ISO-v1.0.2.hex)** | All Features for ISO Layout | `342d:e483` | ✔️ Maintained |
 
 ---
 
@@ -60,8 +60,8 @@ The firmware uses a 6-layer system for maximum flexibility:
 | **Toggle SOCD / SnapTap** | `T` | Highlighted Orange in Layer 2 |
 | **Toggle OpenRGB** | `O` | Cyan when active; Red when disabled in Layer 2 |
 | **Toggle SignalRGB** | `S` | Green when active; Red when disabled in Layer 2 |
-| **Switch to Layer 0 (Windows)** | `F1` | Switches back to Base Windows layout |
-| **Switch to Layer 3 (Mac)** | `F2` | Swaps Alt & Cmd (Mac LED turns ON) |
+| **Switch to Layer 0 (Windows)** | `F1` | Switches to Base Windows layout for the session (Mac LED turns OFF) |
+| **Switch to Layer 3 (Mac)** | `F2` | Switches to Mac layout (Default on boot; Mac LED turns ON) |
 | **Switch to Layer 4 (Numpad)** | `F3` | Numpad on right-hand keys (Press `F1` to exit) |
 
 > [!NOTE]
@@ -138,13 +138,13 @@ To use VIA, you may need to manually load the JSON layout file:
 
 #### Verify the installed custom firmware on macOS
 
-The versioned ANSI and ISO HEX files use USB device version **1.0.1**. The unversioned HEX files are preserved at **0.0.1**. On macOS, check `bcdDevice` alongside the keyboard name:
+The v1.0.2 ANSI and ISO HEX files use USB device version **1.0.2**. The unversioned HEX files are preserved at **0.0.1**. On macOS, check `bcdDevice` alongside the keyboard name:
 
 ```shell
 ioreg -p IOUSB -l -w 0 | grep -E 'Royal Kludge R75|bcdDevice|idVendor|idProduct'
 ```
 
-The USB product ID remains `0xe484` for ANSI or `0xe483` for ISO. macOS reports `bcdDevice = 257` for version `1.0.1` (`bcdDevice = 1` for the older `0.0.1`). The device version is separate from the product ID.
+The USB product ID remains `0xe484` for ANSI or `0xe483` for ISO. macOS reports `bcdDevice = 258` for version `1.0.2` (`bcdDevice = 257` for `1.0.1` and `bcdDevice = 1` for the older `0.0.1`). The device version is separate from the product ID.
 
 ### 3️⃣ SignalRGB Setup
 1.  Copy [`SignalRGB Plugin for RK R75.js`](plugins/SignalRGB%20Plugin%20for%20RK%20R75.js) to:
@@ -164,7 +164,7 @@ The USB product ID remains `0xe484` for ANSI or `0xe483` for ISO. macOS reports 
 
 To build the firmware yourself, you will need to clone the appropriate QMK firmware repository:
 
-- **For OpenRGB & SignalRGB Support**: Use the [OpenSignalRGB-2026 Branch](https://github.com/snakkarike/qmk_firmware/tree/OpenSignalRGB-2026).
+- **For OpenRGB & SignalRGB Support**: Use the [OpenSignalRGB-131026 Branch](https://github.com/snakkarike/qmk_firmware/tree/OpenSignalRGB-131026).
 - **For Traditional QMK**: Use the [Official QMK Firmware](https://github.com/qmk/qmk_firmware).
 
 On macOS, prepare the isolated QMK checkout and toolchain, then build both layouts:
@@ -180,7 +180,7 @@ make build
 make copy-hex
 ```
 
-The setup target clones the `OpenSignalRGB-2026` QMK branch into `/tmp/r75-qmk-build`, installs the QMK CLI and compiler toolchain under `/tmp`, and stages this repository's ANSI and ISO keyboard sources in that checkout. Use `make clean-build-staging` to remove the copied keyboard sources and generated QMK build outputs while keeping the environment. Use `make clean-build-env` to remove the temporary checkout, CLI, toolchain, and build-installed Homebrew formulas. Homebrew protects formulas required by other installed packages. `make clean-build` and `make clean-all` are aliases for `make clean-build-env`.
+The setup target clones the `OpenSignalRGB-131026` QMK branch into `/tmp/r75-qmk-build`, installs the QMK CLI and compiler toolchain under `/tmp`, and stages this repository's ANSI and ISO keyboard sources in that checkout. Use `make clean-build-staging` to remove the copied keyboard sources and generated QMK build outputs while keeping the environment. Use `make clean-build-env` to remove the temporary checkout, CLI, toolchain, and build-installed Homebrew formulas. Homebrew protects formulas required by other installed packages. `make clean-build` and `make clean-all` are aliases for `make clean-build-env`.
 
 ---
 

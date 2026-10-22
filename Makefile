@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 
 QMK_REPO_URL := https://github.com/snakkarike/qmk_firmware.git
-QMK_REPO_BRANCH := OpenSignalRGB-2026
+QMK_REPO_BRANCH := OpenSignalRGB-131026
 QMK_BUILD_DIR := /tmp/r75-qmk-build
 QMK_UV_INSTALL_DIR := /tmp/r75-qmk-uv
 QMK_UV_TOOL_DIR := /tmp/r75-qmk-uv-tools
